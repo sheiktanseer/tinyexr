@@ -12,3 +12,9 @@ t:
 	./fuzz
 	#./fuzz_62 issue-62-tinyexr_memcpy_heap-buffer-overflow
 	#./fuzz_63 issue-63-tinyexr_signed-integer-overflow
+
+# Regression: replay a known crash reproducer as a single input.
+# On patched code this exits cleanly; on unpatched code ASan reports a
+# heap-buffer-overflow read in hufUncompress (PIZ Huffman header parse).
+regression: all
+	./fuzz issue-257-hufuncompress-heap-buffer-overflow
